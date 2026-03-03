@@ -97,7 +97,7 @@ Para el diseño de la aplicación se optó por un estilo minimalista, caracteriz
 
 Este enfoque permite mejorar la experiencia del usuario, haciendo que la interfaz sea intuitiva, moderna y fácil de utilizar.
 
-## Mockups de la aplicación.
+## Mockups de la aplicación
 
 ---
 
@@ -105,34 +105,68 @@ Este enfoque permite mejorar la experiencia del usuario, haciendo que la interfa
 
 ![Pantalla Login](imagenes/login.png)
 
+Esta pantalla permite al usuario ingresar a la aplicación mediante sus credenciales registradas. Incluye campos para correo electrónico y contraseña, además de accesos directos hacia el registro de usuario y el proceso de recuperación de contraseña.
+
+---
+
 ### Pantalla de Registro
 
 ![Pantalla Registro](imagenes/registro.png)
+
+Permite la creación de una nueva cuenta dentro del sistema. El usuario debe ingresar información básica necesaria para su autenticación y posterior acceso seguro a la aplicación.
+
+---
 
 ### Pantalla de Restablecimiento de Contraseña
 
 ![Pantalla Restablecimiento de Contraseña](imagenes/restablecer_contrasena.png)
 
+Diseñada para que el usuario pueda solicitar la recuperación de su contraseña en caso de olvido. Se solicita el correo electrónico asociado a la cuenta para iniciar el proceso de verificación.
+
+---
+
 ### Pantalla de Verificación de Correo
 
-![Pantalla Login](imagenes/verificacion_correo.png)
+![Pantalla Verificación de Correo](imagenes/verificacion_correo.png)
+
+Informa al usuario que se ha enviado un mensaje de verificación a su correo electrónico. Esta etapa confirma la identidad antes de permitir el cambio de contraseña.
+
+---
 
 ### Pantalla de Código de Verificación
 
-![Pantalla Login](imagenes/codigo_verificacion.png)
+![Pantalla Código de Verificación](imagenes/codigo_verificacion.png)
+
+El usuario debe ingresar el código recibido en su correo electrónico para validar el proceso de recuperación y continuar con el restablecimiento de la contraseña.
+
+---
 
 ### Pantalla Principal
 
 ![Pantalla Principal](imagenes/principal.png)
 
+Corresponde a la vista inicial tras el inicio de sesión. Desde esta pantalla el usuario puede visualizar un resumen general y acceder rápidamente a las funcionalidades principales mediante la barra de navegación inferior.
+
+---
+
 ### Pantalla de Contraseñas
 
-![Pantalla Login](imagenes/contrasenas.png)
+![Pantalla Contraseñas](imagenes/contrasenas.png)
+
+Muestra la lista de contraseñas almacenadas por el usuario. Permite consultar, organizar y gestionar las credenciales registradas dentro de la aplicación.
+
+---
 
 ### Pantalla de Generador de Contraseñas
 
-![Pantalla Login](imagenes/generador.png)
+![Pantalla Generador de Contraseñas](imagenes/generador.png)
+
+Incluye una herramienta para generar contraseñas seguras automáticamente, ayudando al usuario a mejorar la protección de sus cuentas digitales.
+
+---
 
 ### Pantalla de Perfil
 
-![Pantalla Login](imagenes/perfil.png)
+![Pantalla Perfil](imagenes/perfil.png)
+
+Permite al usuario visualizar y administrar su información personal, así como acceder a configuraciones relacionadas con su cuenta dentro de la aplicación.
