@@ -103,7 +103,7 @@ Este enfoque permite mejorar la experiencia del usuario, haciendo que la interfa
 
 ### Pantalla de Inicio de Sesión
 
-![Pantalla Login](imagenes/login.png)
+![Pantalla Login](images/login.png)
 
 Esta pantalla permite al usuario ingresar a la aplicación mediante sus credenciales registradas. Incluye campos para correo electrónico y contraseña, además de accesos directos hacia el registro de usuario y el proceso de recuperación de contraseña.
 
@@ -111,7 +111,7 @@ Esta pantalla permite al usuario ingresar a la aplicación mediante sus credenci
 
 ### Pantalla de Registro
 
-![Pantalla Registro](imagenes/registro.png)
+![Pantalla Registro](images/registro.png)
 
 Permite la creación de una nueva cuenta dentro del sistema. El usuario debe ingresar información básica necesaria para su autenticación y posterior acceso seguro a la aplicación.
 
@@ -119,7 +119,7 @@ Permite la creación de una nueva cuenta dentro del sistema. El usuario debe ing
 
 ### Pantalla de Restablecimiento de Contraseña
 
-![Pantalla Restablecimiento de Contraseña](imagenes/restablecer_contrasena.png)
+![Pantalla Restablecimiento de Contraseña](images/restablecer_contrasena.png)
 
 Diseñada para que el usuario pueda solicitar la recuperación de su contraseña en caso de olvido. Se solicita el correo electrónico asociado a la cuenta para iniciar el proceso de verificación.
 
@@ -127,7 +127,7 @@ Diseñada para que el usuario pueda solicitar la recuperación de su contraseña
 
 ### Pantalla de Verificación de Correo
 
-![Pantalla Verificación de Correo](imagenes/verificacion_correo.png)
+![Pantalla Verificación de Correo](images/verificacion_correo.png)
 
 Informa al usuario que se ha enviado un mensaje de verificación a su correo electrónico. Esta etapa confirma la identidad antes de permitir el cambio de contraseña.
 
@@ -135,7 +135,7 @@ Informa al usuario que se ha enviado un mensaje de verificación a su correo ele
 
 ### Pantalla de Código de Verificación
 
-![Pantalla Código de Verificación](imagenes/codigo_verificacion.png)
+![Pantalla Código de Verificación](images/codigo_verificacion.png)
 
 El usuario debe ingresar el código recibido en su correo electrónico para validar el proceso de recuperación y continuar con el restablecimiento de la contraseña.
 
@@ -143,7 +143,7 @@ El usuario debe ingresar el código recibido en su correo electrónico para vali
 
 ### Pantalla Principal
 
-![Pantalla Principal](imagenes/principal.png)
+![Pantalla Principal](images/principal.png)
 
 Corresponde a la vista inicial tras el inicio de sesión. Desde esta pantalla el usuario puede visualizar un resumen general y acceder rápidamente a las funcionalidades principales mediante la barra de navegación inferior.
 
@@ -151,7 +151,7 @@ Corresponde a la vista inicial tras el inicio de sesión. Desde esta pantalla el
 
 ### Pantalla de Contraseñas
 
-![Pantalla Contraseñas](imagenes/contrasenas.png)
+![Pantalla Contraseñas](images/contrasenas.png)
 
 Muestra la lista de contraseñas almacenadas por el usuario. Permite consultar, organizar y gestionar las credenciales registradas dentro de la aplicación.
 
@@ -159,7 +159,7 @@ Muestra la lista de contraseñas almacenadas por el usuario. Permite consultar, 
 
 ### Pantalla de Generador de Contraseñas
 
-![Pantalla Generador de Contraseñas](imagenes/generador.png)
+![Pantalla Generador de Contraseñas](images/generador.png)
 
 Incluye una herramienta para generar contraseñas seguras automáticamente, ayudando al usuario a mejorar la protección de sus cuentas digitales.
 
