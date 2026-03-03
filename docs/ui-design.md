@@ -167,6 +167,6 @@ Incluye una herramienta para generar contraseñas seguras automáticamente, ayud
 
 ### Pantalla de Perfil
 
-![Pantalla Perfil](imagenes/perfil.png)
+![Pantalla Perfil](images/perfil.png)
 
 Permite al usuario visualizar y administrar su información personal, así como acceder a configuraciones relacionadas con su cuenta dentro de la aplicación.
