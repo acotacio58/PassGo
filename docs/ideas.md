@@ -2,50 +2,49 @@
 
 Se proponen las siguientes ideas de aplicación para el proyecto:
 
-## Idea 1: UANCasts (seleccionada)
+## Idea 1: PassGo (Seleccionada)
 
-UANCasts es una aplicación que permite consultar y escuchar Podcasts de distintas fuentes a través
-de una interfaz de usuario amigable. La aplicación traerá la información de Listen Notes, que es una
-fuente pública de datos de Podcasts en Internet.
+PassGo es una aplicación orientada a la gestión segura de contraseñas que permite a los usuarios generar, almacenar y administrar credenciales únicas para diferentes sitios web y aplicaciones. Esta solución surge como respuesta a la alta vulnerabilidad existente en múltiples plataformas digitales, donde es común que los usuarios reutilicen la misma contraseña, aumentando el riesgo de accesos no autorizados y filtraciones de información. Mediante el uso de PassGo, cada usuario puede disponer de contraseñas robustas y diferenciadas para cada servicio, fortaleciendo la protección de su identidad digital y reduciendo significativamente los riesgos asociados a la seguridad informática.
 
 ### Aplicaciones similares
 
-- [Apple Podcasts](https://apps.apple.com/es/app/apple-podcasts/id525463029)
-- [Pocket Casts](https://play.google.com/store/apps/details?id=au.com.shiftyjelly.pocketcasts&hl=es_CO&gl=US)
-- [Podcasts Addict](https://play.google.com/store/apps/details?id=com.bambuna.podcastaddict&hl=es_CO&gl=US)
-- [Stitcher](https://play.google.com/store/apps/details?id=com.stitcher.app&hl=es_CO&gl=US)
+✔️ [Gestor de contraseñas Google](https://play.google.com/store/apps/details?id=com.google.android.apps.credentialmanager)    
+✔️ [Kaspersky Password Manager](https://galaxystore.samsung.com/detail/com.kaspersky.passwordmanager)  
 
-## Idea 2: Lorem ipsum dolor sit amet
+## Idea 2: Control de Consumo de Agua
 
-Lorem ipsum dolor sit amet consectetur adipiscing elit laoreet platea integer, cras vestibulum
-sociis nunc nisl hac tempor sem porttitor magnis inceptos, nibh placerat varius blandit sed egestas
-montes fames diam. Dis non eu fames netus potenti sapien malesuada, eleifend himenaeos morbi ut
-mauris ad, senectus consequat tellus leo donec suspendisse. Ornare convallis facilisis nisi feugiat
-mus vel eros enim senectus, augue nibh nullam elementum conubia imperdiet magnis rutrum, eleifend
-cubilia torquent felis ultricies ut urna tortor. Convallis etiam taciti aenean fringilla orci
-eleifend ad donec, accumsan neque pharetra non venenatis platea risus, sociis ultricies nisi
-vulputate suspendisse a nec.
+Control de Consumo de Agua es una aplicación diseñada para monitorear y registrar la ingesta diaria de agua de los usuarios, con el propósito de fomentar hábitos de hidratación saludables. Esta solución responde a la necesidad de muchas personas de llevar un seguimiento adecuado de su consumo hídrico, ya que con frecuencia no se alcanza la cantidad recomendada para el correcto funcionamiento del organismo. A través de la aplicación, el usuario puede registrar la cantidad de agua consumida durante el día, visualizar su progreso y recibir recordatorios que faciliten el cumplimiento de metas de hidratación personalizadas. De esta manera, se promueve el bienestar general y la adopción de rutinas saludables basadas en el autocontrol y la conciencia del cuidado personal.
 
 ### Aplicaciones similares
 
-- [App 1](#)
-- [App 2](#)
-- [App 3](#)
+✔️ [Water Drink Reminder](https://play.google.com/store/apps/details?id=com.northpark.drinkwater&hl=en)  
+✔️ [Water Tracker - Hydro Coach](https://play.google.com/store/apps/details?id=com.codium.hydrocoach&hl=en-US)
 
-## Idea 3: At vero eos et accusamus et iusto
+## Idea 3: Lista de Tareas
 
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit,
-sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam
-est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius
-modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima
-veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea
-commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil
-molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+Lista de Tareas es una aplicación orientada a la gestión y organización de actividades personales y académicas, que permite a los usuarios planificar, registrar y dar seguimiento a sus pendientes de manera estructurada. Esta solución surge de la necesidad de mejorar la administración del tiempo y la productividad, ya que muchas personas presentan dificultades para recordar, priorizar y completar sus tareas diarias. Mediante la aplicación, el usuario puede crear nuevas tareas, editarlas, marcarlas como completadas y eliminarlas cuando sea necesario, manteniendo un control claro de sus responsabilidades. De esta forma, se facilita la organización personal, el cumplimiento de objetivos y el desarrollo de hábitos de planificación efectivos.
 
 ### Aplicaciones similares
 
-- [App 1](#)
-- [App 2](#)
-- [App 3](#)
+✔️ [Microsoft To Do: Lists & Tasks](https://play.google.com/store/apps/details?id=com.microsoft.todos&hl=en-US)  
+✔️ [Google Tasks](https://play.google.com/store/apps/details?id=com.google.android.apps.tasks&hl=es)
+
+## Idea 4: MedicalApp
+
+La idea de proyecto consiste en desarrollar una aplicación de citas médicas utilizando Kotlin, pensada para facilitar la gestión de turnos entre pacientes y profesionales de la salud. La idea es que los usuarios puedan registrarse, iniciar sesión, buscar médicos por especialidad y agendar, reprogramar o cancelar citas según la disponibilidad.
+
+### Aplicaciones similares
+
+✔️ [Doctoralia: pide citas médicas](https://play.google.com/store/apps/details?id=co.doctoralia&hl=es_CO)  
+✔️ [doc-doc | Citas médicas online](https://play.google.com/store/apps/details?id=com.app.docdoc&hl=es_CO)  
+✔️ [Citas Salud Mía](https://play.google.com/store/apps/details?id=com.fcv.citassaludmia&hl=es_CO)
+
+## Idea 5: HealthAlert
+
+La idea de proyecto consiste en desarrollar una aplicación móvil en Kotlin que permita a los usuarios llevar un control básico de su salud diaria. La app incluirá recordatorios de citas médicas y medicamentos, además de un registro donde el usuario podrá ingresar datos como temperatura corporal, peso y talla. A partir de esta información, la aplicación calculará automáticamente el índice de masa corporal (IMC) y mostrará alertas si la temperatura indica posible fiebre. El objetivo es crear una herramienta sencilla, práctica y educativa que ayude a las personas a organizar mejor su salud desde su dispositivo móvil.
+
+### Aplicaciones similares
+
+✔️ [MedControl: Salud y Medicación](https://play.google.com/store/apps/details?id=es.medcontrol&hl=es_CO)  
+✔️ [Agenda de Citas - Calendario](https://play.google.com/store/apps/details?id=net.rention.appointmentsplanner&hl=es_CO)  
+✔️ [Medical Reminder](https://play.google.com/store/apps/details?id=com.medical_reminder&hl=es_CO)  
