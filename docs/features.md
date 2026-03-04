@@ -1,43 +1,39 @@
 # Funcionalidades de la aplicación
 
+## Funcionalidades del usuario
+
+PassGo permite a los usuarios gestionar de forma segura sus credenciales digitales mediante las siguientes funcionalidades:
+
+1. ✔️ Registrarse en la aplicación mediante la creación de una cuenta personal.  
+2. ✔️ Iniciar sesión de forma segura utilizando sus credenciales.  
+3. ✔️ Cerrar sesión para proteger el acceso a su información.  
+4. ✔️ Agregar nuevas credenciales asociadas a sitios web o aplicaciones.  
+5. ✔️ Editar la información de credenciales almacenadas.  
+6. ✔️ Eliminar credenciales cuando ya no sean necesarias.  
+7. ✔️ Visualizar la lista de credenciales guardadas.  
+8. ✔️ Buscar credenciales por nombre de sitio o servicio.  
+9. ✔️ Generar contraseñas seguras automáticamente.  
+10. ✔️ Mostrar u ocultar la contraseña almacenada.  
+11. ✔️ Copiar la contraseña al portapapeles para facilitar su uso.  
+12. ✔️ Validar el nivel de seguridad de una contraseña ingresada.  
+13. ✔️ Confirmar acciones sensibles como eliminación de credenciales.  
+14. ✔️ Mantener las contraseñas almacenadas de forma protegida.  
+15. ✔️ Organizar las credenciales para facilitar su consulta y gestión.  
+
 ## Restricciones técnicas
 
-1. Esta aplicación funcionará en dispositivos Android con sistema operativo versión 8 o superior.
+1. **Compatibilidad Android:** La aplicación debe ser compatible con una versión mínima de Android (por ejemplo, **Android 8.0 Oreo / API 26** o superior), de modo que pueda ejecutarse en la mayoría de dispositivos actuales.
 
-2. La información usada en la aplicación es de uso gratuito y será obtenida del API
-   de [Listen Notes](https://www.listennotes.com/podcast-api/).
+2. **Arquitectura del proyecto:** Se debe mantener una arquitectura organizada (por ejemplo, **MVVM o MVC**), separando lógica de negocio, UI y acceso a datos para facilitar mantenimiento y pruebas.
 
-3. Cualquier información enviada por el usuario será almacenada de forma local en el dispositivo.
+3. **Almacenamiento local:** Las credenciales deben persistirse en el dispositivo usando una solución local definida (por ejemplo **Room/SQLite**). No se permitirá depender obligatoriamente de internet para funcionar.
 
-## Funcionalidades de usuario
+4. **Seguridad de datos:** Las contraseñas no deben almacenarse en texto plano. Se debe aplicar al menos una capa de protección (por ejemplo cifrado local o uso de **Android Keystore** para proteger claves).
 
-UANCasts le permitirá al usuario consultar e interactuar con Podcasts de distintos tópicos a través
-de una interfaz amigable. El usuario podrá:
+5. **Acceso y autenticación:** La aplicación debe exigir **inicio de sesión** para acceder a las credenciales. No se permite que la información quede visible sin autenticación.
 
-1. Ver una lista de los podcasts disponibles: Al ingresar a la aplicación verá una lista de los
-   podcasts disponibles en Listen Notes.
+6. **Permisos mínimos:** La app solo debe solicitar permisos estrictamente necesarios. Si se usa “copiar al portapapeles”, no requiere permisos especiales, pero se debe manejar de forma segura.
 
-2. Seleccionar un podcast ver los episodios disponibles para ese podcast: Desde la pantalla inicial
-   podrá seleccionar cualquier podcast y ver la lista de episodios disponibles. El primer episodio
-   se reproducirá de forma automática.
+11. **Control de versiones:** El código debe mantenerse en **GitHub**, con commits frecuentes y mensajes claros. Se deben excluir archivos generados (build/, .idea/, etc.).
 
-3. Ir al sitio web del Podcast (si existe): Si el Podcast tiene un sitio web podrá abrirlo en el
-   navegador por defecto en su celular.
-
-4. Reproducir episodios de podcast: Desde la lista de episodios podrá reproducir cualquiera de
-   ellos.
-
-5. Adelantar la reproducción de un podcast: Podrá adelantar la reproducción en intervalos de 15
-   segundos.
-
-6. Retrasar la reproducción de un podcast: Podrá regresar la reproducción en intervalos de 15
-   segundos.
-
-7. Buscar podcasts por nombre: Al ir a la ventana de búsqueda podrá navegar buscando el nombre de su
-   podcast de interés.
-
-8. Votar por los podcasts favoritos: En cada Podcast tendrá una opción para votar por el podcast. La
-   votación será personal y estará disponible solo desde el dispositivo.
-
-9. Ver los podcasts favoritos: Podrá ir a la ventana de favoritos donde verá los Podcasts que ha
-   votado como favoritos en orden de calificación.
+12. **Rendimiento:** La aplicación debe funcionar correctamente en dispositivos de gama media, evitando cargas pesadas en el hilo principal (por ejemplo, consultas a base de datos deben ejecutarse fuera del UI thread).
