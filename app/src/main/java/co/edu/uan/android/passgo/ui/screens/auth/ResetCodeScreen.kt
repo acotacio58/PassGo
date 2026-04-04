@@ -2,6 +2,7 @@ package co.edu.uan.android.passgo.ui.screens.auth
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,41 +12,38 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import co.edu.uan.android.passgo.R
 import androidx.compose.foundation.verticalScroll
 
 @Composable
-fun ForgotPasswordScreen(
-    onBack: () -> Unit,
-    onContinue: () -> Unit
+fun ResetCodeScreen(
+    onVerify: () -> Unit,
+    onResend: () -> Unit
 ) {
-    var email by remember { mutableStateOf("") }
-
     val backgroundColor = Color(0xFF1E1F20)
     val topCardColor = Color(0xFF131314)
-    val fieldColor = Color(0xFF4A4A4A)
     val blueColor = Color(0xFF42A5F5)
     val whiteColor = Color.White
+
+    val codeDigits = remember { mutableStateListOf("1", "2", "3", "4", "5", "6") }
 
     Column(
         modifier = Modifier
@@ -59,8 +57,8 @@ fun ForgotPasswordScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 2.dp)
-                .height(320.dp),
+                .padding(horizontal = 10.dp)
+                .height(720.dp),
             contentAlignment = Alignment.TopCenter
         ) {
             Box(
@@ -68,17 +66,14 @@ fun ForgotPasswordScreen(
                     .fillMaxSize()
                     .background(
                         color = topCardColor,
-                        shape = RoundedCornerShape(
-                            bottomStart = 18.dp,
-                            bottomEnd = 18.dp
-                        )
+                        shape = RoundedCornerShape(18.dp)
                     )
             )
 
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 34.dp),
+                    .padding(top = 34.dp, start = 24.dp, end = 24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Image(
@@ -96,77 +91,60 @@ fun ForgotPasswordScreen(
                     color = blueColor,
                     fontSize = 16.sp
                 )
-            }
-        }
 
-        Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.height(70.dp))
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .background(
-                    color = backgroundColor,
-                    shape = RoundedCornerShape(12.dp)
-                )
-                .padding(24.dp)
-        ) {
-            Column {
                 Text(
-                    text = "Correo electrónico",
+                    text = "Introduce el código de verificación:",
                     color = whiteColor,
                     fontSize = 16.sp
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
-
-                OutlinedTextField(
-                    value = email,
-                    onValueChange = { email = it },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(8.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = fieldColor,
-                        unfocusedContainerColor = fieldColor,
-                        focusedBorderColor = fieldColor,
-                        unfocusedBorderColor = fieldColor,
-                        focusedTextColor = whiteColor,
-                        unfocusedTextColor = whiteColor,
-                        cursorColor = whiteColor
-                    ),
-                    singleLine = true
-                )
-
-                Spacer(modifier = Modifier.height(22.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    TextButton(onClick = onBack) {
-                        Text(
-                            text = "Cancelar",
-                            color = blueColor
-                        )
+                    codeDigits.forEach { digit ->
+                        Box(
+                            modifier = Modifier
+                                .size(width = 30.dp, height = 32.dp)
+                                .border(1.dp, whiteColor, RoundedCornerShape(8.dp)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = digit,
+                                color = whiteColor
+                            )
+                        }
                     }
+                }
 
-                    Button(
-                        onClick = onContinue,
-                        shape = RoundedCornerShape(10.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = blueColor
-                        )
-                    ) {
-                        Text(
-                            text = "Restablecer Contraseña",
-                            color = whiteColor
-                        )
-                    }
+                Spacer(modifier = Modifier.height(18.dp))
+
+                TextButton(onClick = onResend) {
+                    Text(
+                        text = "¿No recibiste el código? Reenviar",
+                        color = whiteColor,
+                        textDecoration = TextDecoration.Underline
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(26.dp))
+
+                Button(
+                    onClick = onVerify,
+                    shape = RoundedCornerShape(10.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = blueColor
+                    )
+                ) {
+                    Text(
+                        text = "Verificar Código",
+                        color = whiteColor
+                    )
                 }
             }
         }
-
-        Spacer(modifier = Modifier.height(24.dp))
     }
 }
