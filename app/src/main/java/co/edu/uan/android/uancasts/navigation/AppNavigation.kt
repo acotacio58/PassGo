@@ -1,9 +1,14 @@
 package co.edu.uan.android.uancasts.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.compose.*
-import co.edu.uan.android.uancasts.ui.screens.auth.*
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import co.edu.uan.android.uancasts.ui.screens.auth.ForgotPasswordScreen
+import co.edu.uan.android.uancasts.ui.screens.auth.LoginScreen
+import co.edu.uan.android.uancasts.ui.screens.auth.RegisterScreen
 import co.edu.uan.android.uancasts.ui.screens.home.HomeScreen
+import co.edu.uan.android.uancasts.ui.screens.passwords.PasswordsScreen
 
 @Composable
 fun AppNavigation() {
@@ -13,7 +18,6 @@ fun AppNavigation() {
         navController = navController,
         startDestination = Routes.Login.route
     ) {
-
         composable(Routes.Login.route) {
             LoginScreen(
                 onLoginClick = { navController.navigate(Routes.Home.route) },
@@ -23,19 +27,37 @@ fun AppNavigation() {
         }
 
         composable(Routes.Register.route) {
-            RegisterScreen {
-                navController.popBackStack()
-            }
+            RegisterScreen(
+                onBack = { navController.popBackStack() }
+            )
         }
 
         composable(Routes.ForgotPassword.route) {
-            ForgotPasswordScreen {
-                navController.popBackStack()
-            }
+            ForgotPasswordScreen(
+                onBack = { navController.popBackStack() }
+            )
         }
 
         composable(Routes.Home.route) {
-            HomeScreen()
+            HomeScreen(
+                onHomeClick = {},
+                onPasswordsClick = { navController.navigate(Routes.Passwords.route) },
+                onGeneratorClick = {},
+                onProfileClick = {}
+            )
+        }
+
+        composable(Routes.Passwords.route) {
+            PasswordsScreen(
+                onHomeClick = {
+                    navController.navigate(Routes.Home.route) {
+                        popUpTo(Routes.Home.route) { inclusive = true }
+                    }
+                },
+                onPasswordsClick = {},
+                onGeneratorClick = {},
+                onProfileClick = {}
+            )
         }
     }
 }
