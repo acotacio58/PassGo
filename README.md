@@ -1,67 +1,94 @@
-[![Android CI](https://github.com/android-fis-uan/android-sample-project/actions/workflows/android.yml/badge.svg)](https://github.com/android-fis-uan/android-sample-project/actions/workflows/android.yml)
+# 🔐 PassGo - Gestor de Contraseñas
 
-# Proyecto de ejemplo de Computación Móvil
+PassGo es una aplicación móvil desarrollada en Android que permite a los usuarios gestionar, generar y organizar contraseñas de forma segura y sencilla.
 
-Este repositorio contiene el código fuente y la [documentación](docs) del proyecto.
+## 📱 Descripción
 
-## Uso del proyecto
+PassGo funciona como una bóveda digital personal donde los usuarios pueden:
 
-Este proyecto fue probado usando el SDK de Android version 36.
+- Guardar contraseñas organizadas por categorías
+- Generar contraseñas seguras
+- Administrar su perfil
+- Recuperar acceso mediante restablecimiento de contraseña
 
-### Con Android Studio
+El proyecto está enfocado en ofrecer una interfaz moderna, intuitiva y alineada con buenas prácticas de desarrollo móvil.
 
-Abra el proyecto en [Android Studio](https://developer.android.com/studio). La versión actual fue probada con Android Studio Otter 3 Feature Drop | 2025.2.3.9. Para generar el proyecto vaya a `Build` > `Build APKs`.
+---
 
-### Desde la linea de comandos
+## 🚀 Funcionalidades
 
-> Nota: Puede usar `devcontainers`. El proyecto ya tiene una imagen pre-configurada con el SDK de Android y el CLI de GCloud.
+### 🔐 Autenticación
+- Inicio de sesión
+- Registro de usuario
+- Recuperación de contraseña (flujo completo)
+  - Ingreso de correo
+  - Confirmación de envío
+  - Verificación por código
 
-Para compilar este proyecto desde la linea de comandos ejecute la tarea de generación de un APK en [Gradle](https://developer.android.com/build/building-cmdline):
+### 🏠 Pantalla Principal
+- Vista general del usuario
+- Acceso rápido a categorías
+- Listado de contraseñas
+
+### 🔑 Gestión de Contraseñas
+- Organización por categorías:
+  - Redes Sociales
+  - Aplicaciones
+  - Billetera
+- Visualización de cuentas guardadas
+
+### ⚙️ Generador de Contraseñas
+- Longitud configurable
+- Inclusión de:
+  - Mayúsculas
+  - Minúsculas
+  - Números
+  - Caracteres especiales
+- Generación automática
+
+### 👤 Perfil
+- Visualización de datos del usuario
+- Edición de información
+- Cierre de sesión
+- Eliminación de cuenta
+
+---
+
+## 🛠️ Tecnologías utilizadas
+
+- Kotlin
+- Jetpack Compose
+- Android Studio
+- Material Design 3
+- Navigation Component
+
+---
+
+## 📂 Estructura del proyecto
 
 ```bash
-./gradlew assembleDebug
+ui/
+ ├── screens/
+ │   ├── auth/        (login, registro, recuperación)
+ │   ├── home/
+ │   ├── passwords/
+ │   ├── profile/
+ │   ├── generator/
+ ├── theme/
+navigation/
 ```
 
-## Pruebas
+## 🎨 Diseño
 
-Puede ejecutar la aplicación instalando el APK generado en su dispositivo físico o en un emulador. También es posible ejecutar la aplicación en el [Test Lab de Firebase usando el cliente de GCloud](https://firebase.google.com/docs/test-lab/android/command-line?authuser=0&hl=en). Asegúrese de tener instalado el CLI de GCloud.
+El diseño de la aplicación fue realizado en Figma:
 
-Para esto siga los siguientes pasos:
+👉 https://www.figma.com/design/5o0LloKLvxA9a0R5p2F2FW/PassGo--Gestor-de-Contrase%C3%B1as-
 
-1. Cree un nuevo proyecto en Firebase
+---
 
-1. Inicie su sesión en GCloud desde la linea de comandos:
+## ⚙️ Instalación
 
-   ```bash
-   gcloud init --console-only
-   ```
+1. Clonar el repositorio:
 
-1. Valide los modelos de Android disponibles para sus pruebas usando el comando
-
-   ```bash
-   gcloud firebase test android models list --filter=virtual
-   ```
-
-1. Corra sus pruebas con el comando ```gcloud firebase test android run``` pasando los parámetros apropiados como el modelo y version de Android a usar. Asegúrese de estar en la carpeta donde se genero el APK (`app/builf/outputs/apk/debug`). Por ejemplo:
-   
-   Pruebas en un dispositivo físico de modelo `tokay` y con Android SDK `34` (Android 14)
-
-   ```bash
-   gcloud firebase test android run --app app-debug.apk --type robo --device model=tokay,version=34,locale=en,orientation=portrait
-   ```
-
-   Pruebas en un dispositivo físico de modelo `redfin` y con Android SDK `30` (Android 11)
-
-   ```bash
-   gcloud firebase test android run --app app-debug.apk --type robo --device model=redfin,version=30,locale=en,orientation=portrait
-   ```
-
-   Pruebas en un dispositivo virtual de modelo `MediumPhone.arm` y con Android SDK `30` (Android 11) 
-
-   ```bash
-   gcloud firebase test android run --app app-debug.apk --type robo --device model=MediumPhone.arm,version=30,locale=en,orientation=portrait
-   ```
-
-## Uso de Github Actions
-
-El proyecto esta configurado con Github Actions para compilar y probar de forma automática el proyecto con Firebase Test Lab, en cada push a la rama principal.
+```bash
+git clone https://github.com/acotacio58/PassGo.git
