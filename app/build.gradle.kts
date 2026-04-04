@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.acotacio58.passgo"
+    namespace = "co.edu.uan.android.passgo"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.acotacio58.passgo"
+        applicationId = "co.edu.uan.android.passgo"
         minSdk = 28
         targetSdk = 34
         versionCode = 1
