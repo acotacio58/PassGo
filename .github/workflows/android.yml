@@ -22,7 +22,7 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       if: ${{ hashFiles('build.gradle*') != '' }}
-      run: ./gradlew build
+      run: ./gradlew assembleDebug
     - name: Upload Testing APK
       uses: actions/upload-artifact@v4
       with:
