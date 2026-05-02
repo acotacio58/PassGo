@@ -36,6 +36,8 @@ import androidx.compose.foundation.verticalScroll
 
 @Composable
 fun RegisterScreen(
+    errorMessage: String?,
+    onRegister: (String, String, String, String) -> Unit,
     onBack: () -> Unit
 ) {
     var nombre by remember { mutableStateOf("") }
@@ -215,10 +217,21 @@ fun RegisterScreen(
                 singleLine = true
             )
 
-            Spacer(modifier = Modifier.height(26.dp))
+            Spacer(modifier = Modifier.height(8.dp))
+
+            if (!errorMessage.isNullOrEmpty()) {
+                Text(
+                    text = errorMessage,
+                    color = Color.Red,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(bottom = 12.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(18.dp))
 
             Button(
-                onClick = { },
+                onClick = { onRegister(nombre, apellido, correo, contrasena) },
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(

@@ -18,15 +18,21 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,7 +41,8 @@ import androidx.compose.foundation.verticalScroll
 
 @Composable
 fun ResetCodeScreen(
-    onVerify: () -> Unit,
+    errorMessage: String?,
+    onVerify: (String, String) -> Unit,
     onResend: () -> Unit
 ) {
     val backgroundColor = Color(0xFF1E1F20)
@@ -43,7 +50,8 @@ fun ResetCodeScreen(
     val blueColor = Color(0xFF42A5F5)
     val whiteColor = Color.White
 
-    val codeDigits = remember { mutableStateListOf("1", "2", "3", "4", "5", "6") }
+    var code by remember { mutableStateOf("") }
+    var newPassword by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -100,24 +108,62 @@ fun ResetCodeScreen(
                     fontSize = 16.sp
                 )
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    codeDigits.forEach { digit ->
-                        Box(
-                            modifier = Modifier
-                                .size(width = 30.dp, height = 32.dp)
-                                .border(1.dp, whiteColor, RoundedCornerShape(8.dp)),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = digit,
-                                color = whiteColor
-                            )
-                        }
-                    }
+                OutlinedTextField(
+                    value = code,
+                    onValueChange = { code = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(8.dp),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = topCardColor,
+                        unfocusedContainerColor = topCardColor,
+                        focusedBorderColor = whiteColor,
+                        unfocusedBorderColor = whiteColor,
+                        focusedTextColor = whiteColor,
+                        unfocusedTextColor = whiteColor,
+                        cursorColor = whiteColor
+                    ),
+                    singleLine = true
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(
+                    text = "Nueva contraseña:",
+                    color = whiteColor,
+                    fontSize = 16.sp
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                OutlinedTextField(
+                    value = newPassword,
+                    onValueChange = { newPassword = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(8.dp),
+                    visualTransformation = PasswordVisualTransformation(),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = topCardColor,
+                        unfocusedContainerColor = topCardColor,
+                        focusedBorderColor = whiteColor,
+                        unfocusedBorderColor = whiteColor,
+                        focusedTextColor = whiteColor,
+                        unfocusedTextColor = whiteColor,
+                        cursorColor = whiteColor
+                    ),
+                    singleLine = true
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                if (!errorMessage.isNullOrEmpty()) {
+                    Text(
+                        text = errorMessage,
+                        color = Color.Red,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(bottom = 12.dp)
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(18.dp))
@@ -133,7 +179,7 @@ fun ResetCodeScreen(
                 Spacer(modifier = Modifier.height(26.dp))
 
                 Button(
-                    onClick = onVerify,
+                    onClick = { onVerify(code, newPassword) },
                     shape = RoundedCornerShape(10.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = blueColor

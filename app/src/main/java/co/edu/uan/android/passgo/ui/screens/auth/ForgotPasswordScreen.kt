@@ -36,8 +36,9 @@ import androidx.compose.foundation.verticalScroll
 
 @Composable
 fun ForgotPasswordScreen(
+    errorMessage: String?,
     onBack: () -> Unit,
-    onContinue: () -> Unit
+    onContinue: (String) -> Unit
 ) {
     var email by remember { mutableStateOf("") }
 
@@ -137,6 +138,17 @@ fun ForgotPasswordScreen(
                     singleLine = true
                 )
 
+                Spacer(modifier = Modifier.height(12.dp))
+
+                if (!errorMessage.isNullOrEmpty()) {
+                    Text(
+                        text = errorMessage,
+                        color = Color.Red,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(bottom = 12.dp)
+                    )
+                }
+
                 Spacer(modifier = Modifier.height(22.dp))
 
                 Row(
@@ -152,7 +164,7 @@ fun ForgotPasswordScreen(
                     }
 
                     Button(
-                        onClick = onContinue,
+                        onClick = { onContinue(email) },
                         shape = RoundedCornerShape(10.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = blueColor

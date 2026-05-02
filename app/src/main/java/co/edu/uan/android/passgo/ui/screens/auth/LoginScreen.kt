@@ -23,6 +23,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,7 +42,8 @@ import co.edu.uan.android.passgo.R
 
 @Composable
 fun LoginScreen(
-    onLoginClick: () -> Unit,
+    errorMessage: String?,
+    onLoginClick: (String, String) -> Unit,
     onRegisterClick: () -> Unit,
     onForgotPasswordClick: () -> Unit
 ) {
@@ -173,6 +175,17 @@ fun LoginScreen(
                             singleLine = true
                         )
 
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        if (!errorMessage.isNullOrEmpty()) {
+                            Text(
+                                text = errorMessage,
+                                color = Color.Red,
+                                fontSize = 14.sp,
+                                modifier = Modifier.padding(vertical = 4.dp)
+                            )
+                        }
+
                         Spacer(modifier = Modifier.height(6.dp))
 
                         TextButton(
@@ -190,7 +203,7 @@ fun LoginScreen(
                         Spacer(modifier = Modifier.height(8.dp))
 
                         Button(
-                            onClick = onLoginClick,
+                            onClick = { onLoginClick(user, password) },
                             modifier = Modifier.align(Alignment.CenterHorizontally),
                             shape = RoundedCornerShape(10.dp),
                             colors = ButtonDefaults.buttonColors(
