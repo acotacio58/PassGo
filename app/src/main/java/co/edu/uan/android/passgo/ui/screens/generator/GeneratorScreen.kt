@@ -46,6 +46,9 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 
 @Composable
 fun GeneratorScreen(
+    generatedPassword: String,
+    onGenerate: (Int, Boolean, Boolean, Boolean, Boolean) -> Unit,
+    onSaveGeneratedPassword: (String, String) -> Unit,
     onHomeClick: () -> Unit,
     onPasswordsClick: () -> Unit,
     onGeneratorClick: () -> Unit,
@@ -57,7 +60,11 @@ fun GeneratorScreen(
     val whiteColor = Color.White
     val secondaryText = Color(0xFFBDBDBD)
 
-    var passwordText by remember { mutableStateOf("s0t5ibx234BS9e") }
+    val passwordText = if (generatedPassword.isNotBlank()) {
+        generatedPassword
+    } else {
+        "Presiona generar"
+    }
     var length by remember { mutableIntStateOf(14) }
 
     var upperCase by remember { mutableStateOf(true) }
@@ -99,7 +106,11 @@ fun GeneratorScreen(
                     modifier = Modifier.weight(1f)
                 )
 
-                IconButton(onClick = { }) {
+                IconButton(
+                    onClick = {
+                        onGenerate(length, upperCase, lowerCase, numbers, specialChars)
+                    }
+                ) {
                     Image(
                         painter = painterResource(id = R.drawable.icon_generador),
                         contentDescription = "Regenerar",
