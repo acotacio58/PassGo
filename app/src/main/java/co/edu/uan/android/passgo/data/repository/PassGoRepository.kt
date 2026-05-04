@@ -26,11 +26,14 @@ class PassGoRepository(private val database: AppDatabase) {
         }
 
         val passwordHash = PasswordHasher.hash(password)
+        val verificationCode = generateRecoveryCode()
         val userId = userDao.insert(
             UserEntity(
                 username = username,
                 email = email,
-                passwordHash = passwordHash
+                passwordHash = passwordHash,
+                verificationCode = verificationCode,
+                isEmailVerified = false
             )
         )
         return userDao.getById(userId)?.let { Result.success(it) }
@@ -72,6 +75,34 @@ class PassGoRepository(private val database: AppDatabase) {
         return true
     }
 
+    suspend fun verifyEmailCode(userId: Long, code: String): Result<UserEntity> {
+        val user = userDao.getById(userId)
+            ?: return Result.failure(IllegalArgumentException("Usuario no encontrado."))
+        if (user.verificationCode.isNullOrBlank() || user.verificationCode != code) {
+            return Result.failure(IllegalArgumentException("Código de verificación incorrecto."))
+        }
+        val updatedUser = user.copy(isEmailVerified = true, verificationCode = null)
+        userDao.update(updatedUser)
+        return Result.success(updatedUser)
+    }
+
+    suspend fun resendVerificationCode(userId: Long): Result<UserEntity> {
+        val user = userDao.getById(userId)
+            ?: return Result.failure(IllegalArgumentException("Usuario no encontrado."))
+        val newCode = generateRecoveryCode()
+        val updatedUser = user.copy(verificationCode = newCode)
+        userDao.update(updatedUser)
+        return Result.success(updatedUser)
+    }
+
+    suspend fun updateUserProfileImage(userId: Long, uri: String): Result<UserEntity> {
+        val user = userDao.getById(userId)
+            ?: return Result.failure(IllegalArgumentException("Usuario no encontrado."))
+        val updatedUser = user.copy(profileImageUri = uri)
+        userDao.update(updatedUser)
+        return Result.success(updatedUser)
+    }
+
     suspend fun resetPassword(userId: Long, code: String, newPassword: String): Result<UserEntity> {
         val request = passwordRecoveryDao.getByCode(userId, code)
             ?: return Result.failure(IllegalArgumentException("Código de recuperación incorrecto."))
@@ -98,6 +129,7 @@ class PassGoRepository(private val database: AppDatabase) {
         siteUrl: String?,
         siteUsername: String,
         sitePassword: String,
+        category: String,
         notes: String?
     ): Result<CredentialEntity> {
         val id = credentialDao.insert(
@@ -107,6 +139,7 @@ class PassGoRepository(private val database: AppDatabase) {
                 siteUrl = siteUrl,
                 siteUsername = siteUsername,
                 sitePassword = sitePassword,
+                category = category,
                 notes = notes
             )
         )
@@ -120,6 +153,33 @@ class PassGoRepository(private val database: AppDatabase) {
 
     suspend fun searchCredentials(userId: Long, query: String): List<CredentialEntity> {
         return credentialDao.search(userId, query)
+    }
+
+    suspend fun updateCredential(credential: CredentialEntity): Result<CredentialEntity> {
+        credentialDao.update(credential)
+        return Result.success(credential)
+    }
+
+    suspend fun toggleFavorite(credential: CredentialEntity): Result<CredentialEntity> {
+        val updated = credential.copy(isFavorite = !credential.isFavorite)
+        credentialDao.update(updated)
+        return Result.success(updated)
+    }
+
+    suspend fun getCredentialsByCategory(userId: Long, category: String): List<CredentialEntity> {
+        return credentialDao.getByCategory(userId, category)
+    }
+
+    suspend fun getCredentialCountByCategory(userId: Long, category: String): Int {
+        return credentialDao.getCountByCategory(userId, category)
+    }
+
+    suspend fun getFavoriteCredentials(userId: Long): List<CredentialEntity> {
+        return credentialDao.getFavorites(userId)
+    }
+
+    suspend fun getFavoriteCount(userId: Long): Int {
+        return credentialDao.getFavoriteCount(userId)
     }
 
     suspend fun deleteCredential(credential: CredentialEntity) {

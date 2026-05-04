@@ -1,8 +1,10 @@
 package co.edu.uan.android.passgo.ui.screens.profile
 
+import android.graphics.ImageDecoder
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,8 +35,11 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -48,12 +53,16 @@ import androidx.compose.ui.graphics.ColorFilter
 fun ProfileScreen(
     username: String,
     email: String,
+    firstName: String,
+    lastName: String,
+    profileImageUri: String?,
     onHomeClick: () -> Unit,
     onPasswordsClick: () -> Unit,
     onGeneratorClick: () -> Unit,
     onProfileClick: () -> Unit,
     onLogout: () -> Unit,
-    onDeleteAccount: ((String) -> Unit) -> Unit
+    onDeleteAccount: ((String) -> Unit) -> Unit,
+    onChangeProfileImage: () -> Unit
 ) {
     val backgroundColor = Color(0xFF1E1F20)
     val cardColor = Color(0xFF3A3A3A)
@@ -91,18 +100,43 @@ fun ProfileScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
+        val context = LocalContext.current
+        val profileBitmap = remember(profileImageUri) {
+            profileImageUri?.let { uriString ->
+                try {
+                    val uri = Uri.parse(uriString)
+                    ImageDecoder.decodeBitmap(
+                        ImageDecoder.createSource(context.contentResolver, uri)
+                    )
+                } catch (_: Exception) {
+                    null
+                }
+            }
+        }
+
         Box(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.perfil_usuario),
-                contentDescription = "Foto de perfil",
-                modifier = Modifier
-                    .size(140.dp)
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop
-            )
+            if (profileBitmap != null) {
+                Image(
+                    bitmap = profileBitmap.asImageBitmap(),
+                    contentDescription = "Foto de perfil",
+                    modifier = Modifier
+                        .size(140.dp)
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+            } else {
+                Image(
+                    painter = painterResource(id = R.drawable.perfil_usuario),
+                    contentDescription = "Foto de perfil",
+                    modifier = Modifier
+                        .size(140.dp)
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+            }
 
             Icon(
                 imageVector = Icons.Default.Edit,
@@ -112,6 +146,7 @@ fun ProfileScreen(
                     .align(Alignment.BottomCenter)
                     .padding(start = 120.dp)
                     .size(24.dp)
+                    .clickable { onChangeProfileImage() }
             )
         }
 
@@ -125,7 +160,7 @@ fun ProfileScreen(
                 .padding(horizontal = 18.dp, vertical = 18.dp)
         ) {
             Text(
-                text = "Daniela Laurent",
+                text = "$firstName $lastName",
                 color = whiteColor,
                 fontWeight = FontWeight.Bold
             )
@@ -136,7 +171,7 @@ fun ProfileScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "usuario@correo.com",
+                    text = email,
                     color = secondaryText,
                     modifier = Modifier.weight(1f)
                 )
@@ -154,19 +189,19 @@ fun ProfileScreen(
 
             Spacer(modifier = Modifier.height(18.dp))
 
-            ProfileField("Nombre", "Daniela Paola", true)
+            ProfileField("Nombre", firstName, true)
             Spacer(modifier = Modifier.height(12.dp))
             Divider(color = Color.White)
 
             Spacer(modifier = Modifier.height(18.dp))
 
-            ProfileField("Apellido", "Laurent Rousseau", true)
+            ProfileField("Apellido", lastName, true)
             Spacer(modifier = Modifier.height(12.dp))
             Divider(color = Color.White)
 
             Spacer(modifier = Modifier.height(18.dp))
 
-            ProfileField("Correo electrónico", "usuario@correo.com", true)
+            ProfileField("Correo electrónico", email, true)
             Spacer(modifier = Modifier.height(12.dp))
             Divider(color = Color.White)
 

@@ -59,28 +59,18 @@ fun PasswordsScreen(
     onHomeClick: () -> Unit,
     onPasswordsClick: () -> Unit,
     onGeneratorClick: () -> Unit,
-    onProfileClick: () -> Unit
+    onProfileClick: () -> Unit,
+    onViewAll: (String) -> Unit,
+    onEditCredential: (CredentialEntity) -> Unit
 ) {
     val backgroundColor = Color(0xFF1E1F20)
     val cardColor = Color(0xFF3A3A3A)
     val whiteColor = Color.White
     val secondaryText = Color(0xFFBDBDBD)
 
-    val repeatedApps = if (items.isEmpty()) {
-        listOf(
-            PasswordEntry("Figma", "usuario@correo.com", R.drawable.logo_figma),
-            PasswordEntry("Facebook", "usuario@correo.com", R.drawable.logo_facebook),
-            PasswordEntry("Instagram", "usuario@correo.com", R.drawable.logo_instagram)
-        )
-} else {
-    items.map { credential ->
-        PasswordEntry(
-            name = credential.siteName,
-            email = credential.siteUsername,
-            logoRes = R.drawable.logo_figma
-        )
-    }
-}
+    val socialCredentials = items.filter { it.category == "Redes Sociales" }
+    val appCredentials = items.filter { it.category == "Aplicaciones" }
+    val walletCredentials = items.filter { it.category == "Cartera" }
 
     Box(
         modifier = Modifier
@@ -155,25 +145,37 @@ fun PasswordsScreen(
                 }
             }
 
-            item {
-                PasswordSection(
-                    title = "Redes Sociales",
-                    items = repeatedApps
-                )
+            if (socialCredentials.isNotEmpty()) {
+                item {
+                    PasswordSection(
+                        title = "Redes Sociales",
+                        items = socialCredentials,
+                        onViewAll = { onViewAll("Redes Sociales") },
+                        onEditCredential = onEditCredential
+                    )
+                }
             }
 
-            item {
-                PasswordSection(
-                    title = "Aplicaciones",
-                    items = repeatedApps
-                )
+            if (appCredentials.isNotEmpty()) {
+                item {
+                    PasswordSection(
+                        title = "Aplicaciones",
+                        items = appCredentials,
+                        onViewAll = { onViewAll("Aplicaciones") },
+                        onEditCredential = onEditCredential
+                    )
+                }
             }
 
-            item {
-                PasswordSection(
-                    title = "Billetera",
-                    items = repeatedApps
-                )
+            if (walletCredentials.isNotEmpty()) {
+                item {
+                    PasswordSection(
+                        title = "Cartera",
+                        items = walletCredentials,
+                        onViewAll = { onViewAll("Cartera") },
+                        onEditCredential = onEditCredential
+                    )
+                }
             }
         }
 
@@ -190,7 +192,9 @@ fun PasswordsScreen(
 @Composable
 fun PasswordSection(
     title: String,
-    items: List<PasswordEntry>
+    items: List<CredentialEntity>,
+    onViewAll: () -> Unit,
+    onEditCredential: (CredentialEntity) -> Unit
 ) {
     val whiteColor = Color.White
     val blueColor = Color(0xFF42A5F5)
@@ -212,7 +216,7 @@ fun PasswordSection(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            TextButton(onClick = {}) {
+            TextButton(onClick = onViewAll) {
                 Text(
                     text = "Ver todo",
                     color = blueColor
@@ -223,7 +227,7 @@ fun PasswordSection(
         Spacer(modifier = Modifier.height(6.dp))
 
         items.forEach { item ->
-            PasswordAppCard(item)
+            PasswordAppCard(item, onEditCredential)
             Spacer(modifier = Modifier.height(12.dp))
         }
 
@@ -232,7 +236,7 @@ fun PasswordSection(
 }
 
 @Composable
-fun PasswordAppCard(item: PasswordEntry) {
+fun PasswordAppCard(item: CredentialEntity, onEdit: (CredentialEntity) -> Unit) {
     val cardColor = Color(0xFF3A3A3A)
     val whiteColor = Color.White
     val secondaryText = Color(0xFFD0D0D0)
@@ -249,8 +253,8 @@ fun PasswordAppCard(item: PasswordEntry) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = item.logoRes),
-                contentDescription = item.name,
+                painter = painterResource(id = getLogoForSite(item.siteName)),
+                contentDescription = item.siteName,
                 modifier = Modifier
                     .size(38.dp)
                     .clip(CircleShape),
@@ -261,19 +265,19 @@ fun PasswordAppCard(item: PasswordEntry) {
 
             Column {
                 Text(
-                    text = item.name,
+                    text = item.siteName,
                     color = whiteColor,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = item.email,
+                    text = item.siteUsername,
                     color = secondaryText
                 )
             }
 
             Spacer(modifier = Modifier.weight(1f))
 
-            IconButton(onClick = {}) {
+            IconButton(onClick = { onEdit(item) }) {
                 Icon(
                     imageVector = Icons.Default.MoreVert,
                     contentDescription = "Más opciones",
@@ -374,5 +378,15 @@ fun PasswordsBottomBar(
                 unselectedTextColor = whiteColor
             )
         )
+    }
+}
+
+fun getLogoForSite(siteName: String): Int {
+    return when (siteName.lowercase()) {
+        "facebook" -> R.drawable.logo_facebook
+        "instagram" -> R.drawable.logo_instagram
+        "twitter", "x" -> R.drawable.logo_twitter
+        "figma" -> R.drawable.logo_figma
+        else -> R.drawable.logo_figma // default
     }
 }

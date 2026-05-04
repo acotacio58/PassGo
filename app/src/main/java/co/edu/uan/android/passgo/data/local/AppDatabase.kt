@@ -18,7 +18,7 @@ import co.edu.uan.android.passgo.data.local.entity.UserEntity
         GeneratedPasswordEntity::class,
         PasswordRecoveryEntity::class
     ],
-    version = 1,
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

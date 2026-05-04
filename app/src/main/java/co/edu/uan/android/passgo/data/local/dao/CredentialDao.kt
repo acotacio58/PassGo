@@ -27,4 +27,16 @@ interface CredentialDao {
 
     @Query("SELECT * FROM credentials WHERE user_id = :userId AND site_name LIKE '%' || :query || '%' ORDER BY created_at DESC")
     suspend fun search(userId: Long, query: String): List<CredentialEntity>
+
+    @Query("SELECT COUNT(*) FROM credentials WHERE user_id = :userId AND category = :category")
+    suspend fun getCountByCategory(userId: Long, category: String): Int
+
+    @Query("SELECT * FROM credentials WHERE user_id = :userId AND category = :category ORDER BY created_at DESC")
+    suspend fun getByCategory(userId: Long, category: String): List<CredentialEntity>
+
+    @Query("SELECT * FROM credentials WHERE user_id = :userId AND is_favorite = 1 ORDER BY created_at DESC")
+    suspend fun getFavorites(userId: Long): List<CredentialEntity>
+
+    @Query("SELECT COUNT(*) FROM credentials WHERE user_id = :userId AND is_favorite = 1")
+    suspend fun getFavoriteCount(userId: Long): Int
 }

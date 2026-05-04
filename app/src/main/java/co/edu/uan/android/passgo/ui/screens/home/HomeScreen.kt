@@ -1,8 +1,10 @@
 package co.edu.uan.android.passgo.ui.screens.home
 
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,11 +24,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -47,6 +51,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import co.edu.uan.android.passgo.R
+import co.edu.uan.android.passgo.data.local.entity.CredentialEntity
 
 data class PasswordCategory(
     val title: String,
@@ -64,10 +69,16 @@ data class PasswordItem(
 fun HomeScreen(
     username: String,
     credentialsCount: Int,
+    categoryCounts: Map<String, Int>,
+    credentials: List<CredentialEntity>,
+    favoriteCredentials: List<CredentialEntity>,
     onHomeClick: () -> Unit,
     onPasswordsClick: () -> Unit,
     onGeneratorClick: () -> Unit,
-    onProfileClick: () -> Unit
+    onProfileClick: () -> Unit,
+    onAddCredential: () -> Unit,
+    onEditCredential: (CredentialEntity) -> Unit,
+    onToggleFavorite: (CredentialEntity) -> Unit
 ) {
     val backgroundColor = Color(0xFF1E1F20)
     val headerColor = Color(0xFF131314)
@@ -78,17 +89,16 @@ fun HomeScreen(
     val textSecondary = Color(0xFFBDBDBD)
 
     val categories = listOf(
-        PasswordCategory("Redes Sociales", "14 contraseñas", R.drawable.icon_redes),
-        PasswordCategory("Aplicaciones", "4 contraseñas", R.drawable.icon_aplicaciones),
-        PasswordCategory("Cartera", "3 contraseñas", R.drawable.icon_cartera)
+        PasswordCategory("Redes Sociales", "${categoryCounts["Redes Sociales"] ?: 0} contraseñas", R.drawable.icon_redes),
+        PasswordCategory("Aplicaciones", "${categoryCounts["Aplicaciones"] ?: 0} contraseñas", R.drawable.icon_aplicaciones),
+        PasswordCategory("Cartera", "${categoryCounts["Cartera"] ?: 0} contraseñas", R.drawable.icon_cartera)
     )
 
-    val passwords = listOf(
-        PasswordItem("Figma", "usuario@correo.com", R.drawable.logo_figma),
-        PasswordItem("Facebook", "usuario@correo.com", R.drawable.logo_facebook),
-        PasswordItem("Instagram", "usuario@correo.com", R.drawable.logo_instagram),
-        PasswordItem("Twitter", "usuario@correo.com", R.drawable.logo_twitter)
-    )
+    val recentCredentials = credentials.take(4) // Mostrar las 4 más recientes
+
+    val passwords = recentCredentials.map { credential ->
+        PasswordItem(credential.siteName, credential.siteUsername, getLogoForSite(credential.siteName))
+    }
 
     Box(
         modifier = Modifier
@@ -231,7 +241,8 @@ fun HomeScreen(
                         Box(
                             modifier = Modifier
                                 .size(40.dp)
-                                .background(blueColor, CircleShape),
+                                .background(blueColor, CircleShape)
+                                .clickable { onAddCredential() },
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
@@ -243,12 +254,54 @@ fun HomeScreen(
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
-                }
-            }
 
-            items(passwords) { item ->
-                PasswordCard(item)
-                Spacer(modifier = Modifier.height(12.dp))
+                    // Sección de Favoritos
+                    if (favoriteCredentials.isNotEmpty()) {
+                        Text(
+                            text = "Favoritas",
+                            color = whiteColor,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        favoriteCredentials.take(3).forEach { credential ->
+                            PasswordCard(credential, onEditCredential, onToggleFavorite)
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+                        Spacer(modifier = Modifier.height(16.dp))
+                    } else {
+                        Text(
+                            text = "Favoritas",
+                            color = whiteColor,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "Todavía no tienes favoritas",
+                            color = textSecondary
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
+
+                    // Secciones por categoría
+                    val socialCredentials = credentials.filter { it.category == "Redes Sociales" }.take(3)
+                    val appCredentials = credentials.filter { it.category == "Aplicaciones" }.take(3)
+                    val walletCredentials = credentials.filter { it.category == "Cartera" }.take(3)
+
+                    if (socialCredentials.isNotEmpty()) {
+                        CategorySection("Redes Sociales", socialCredentials, onEditCredential, onToggleFavorite)
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
+
+                    if (appCredentials.isNotEmpty()) {
+                        CategorySection("Aplicaciones", appCredentials, onEditCredential, onToggleFavorite)
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
+
+                    if (walletCredentials.isNotEmpty()) {
+                        CategorySection("Cartera", walletCredentials, onEditCredential, onToggleFavorite)
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
+                }
             }
         }
 
@@ -260,6 +313,16 @@ fun HomeScreen(
             onGeneratorClick = onGeneratorClick,
             onProfileClick = onProfileClick
         )
+    }
+}
+
+fun getLogoForSite(siteName: String): Int {
+    return when (siteName.lowercase()) {
+        "facebook" -> R.drawable.logo_facebook
+        "instagram" -> R.drawable.logo_instagram
+        "twitter", "x" -> R.drawable.logo_twitter
+        "figma" -> R.drawable.logo_figma
+        else -> R.drawable.logo_figma // default
     }
 }
 
@@ -346,10 +409,30 @@ fun FilterChip(
 }
 
 @Composable
-fun PasswordCard(item: PasswordItem) {
+fun CategorySection(title: String, credentials: List<CredentialEntity>, onEdit: (CredentialEntity) -> Unit, onToggleFavorite: (CredentialEntity) -> Unit) {
+    val whiteColor = Color.White
+
+    Column {
+        Text(
+            text = title,
+            color = whiteColor,
+            fontWeight = FontWeight.Bold,
+            fontSize = 16.sp
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        credentials.forEach { credential ->
+            PasswordCard(credential, onEdit, onToggleFavorite)
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+    }
+}
+
+@Composable
+fun PasswordCard(credential: CredentialEntity, onEdit: (CredentialEntity) -> Unit, onToggleFavorite: ((CredentialEntity) -> Unit)? = null) {
     val cardColor = Color(0xFF3A3A3A)
     val whiteColor = Color.White
     val textSecondary = Color(0xFFD0D0D0)
+    val blueColor = Color(0xFF42A5F5)
 
     Card(
         modifier = Modifier
@@ -365,8 +448,8 @@ fun PasswordCard(item: PasswordItem) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = item.logoRes),
-                contentDescription = item.name,
+                painter = painterResource(id = getLogoForSite(credential.siteName)),
+                contentDescription = credential.siteName,
                 modifier = Modifier
                     .size(38.dp)
                     .clip(CircleShape),
@@ -377,19 +460,29 @@ fun PasswordCard(item: PasswordItem) {
 
             Column {
                 Text(
-                    text = item.name,
+                    text = credential.siteName,
                     color = whiteColor,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = item.email,
+                    text = credential.siteUsername,
                     color = textSecondary
                 )
             }
 
             Spacer(modifier = Modifier.weight(1f))
 
-            IconButton(onClick = {}) {
+            if (onToggleFavorite != null) {
+                IconButton(onClick = { onToggleFavorite(credential) }) {
+                    Icon(
+                        imageVector = if (credential.isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                        contentDescription = if (credential.isFavorite) "Quitar de favoritos" else "Agregar a favoritos",
+                        tint = if (credential.isFavorite) Color.Red else whiteColor
+                    )
+                }
+            }
+
+            IconButton(onClick = { onEdit(credential) }) {
                 Icon(
                     imageVector = Icons.Default.MoreVert,
                     contentDescription = "Más opciones",

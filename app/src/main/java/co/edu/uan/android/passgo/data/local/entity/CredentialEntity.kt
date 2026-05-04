@@ -33,7 +33,10 @@ data class CredentialEntity(
     val siteUsername: String,
     @ColumnInfo(name = "site_password")
     val sitePassword: String,
+    val category: String, // Nueva campo: Redes Sociales, Aplicaciones, Cartera
     val notes: String? = null,
+    @ColumnInfo(name = "is_favorite")
+    val isFavorite: Boolean = false,
     @ColumnInfo(name = "created_at")
     val createdAt: Long = System.currentTimeMillis()
 )
