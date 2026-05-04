@@ -1,7 +1,6 @@
 package co.edu.uan.android.passgo.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -17,9 +16,10 @@ import co.edu.uan.android.passgo.ui.screens.auth.ResetCodeScreen
 import co.edu.uan.android.passgo.ui.screens.auth.ResetEmailSentScreen
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(
+    viewModel: PassGoViewModel
+) {
     val navController = rememberNavController()
-    val viewModel: PassGoViewModel = viewModel()
 
     NavHost(
         navController = navController,
