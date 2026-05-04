@@ -86,6 +86,18 @@ El diseño de la aplicación fue realizado en Figma:
 
 ---
 
+## 🧪 Nota para pruebas
+
+Para probar la aplicación es necesario registrarse primero.
+
+Al momento del registro o recuperación de contraseña, al presionar “Abrir correo” se abrirá la aplicación de correo del dispositivo con un mensaje prellenado que incluye el código de verificación. Este código debe copiarse e ingresarse en la app para continuar.
+
+La aplicación ya se encuentra operativa y cumple con los requerimientos principales; sin embargo, aún hay algunos detalles visuales y ajustes menores que serán mejorados en la próxima entrega.
+
+La segunda versión probablemente encaja mejor con el tono de tu README: profesional, clara y sin ese “pues sale como si…” que en documentación técnica hace llorar suavemente a los repositorios.
+
+---
+
 ## ⚙️ Instalación
 
 1. Clonar el repositorio:
