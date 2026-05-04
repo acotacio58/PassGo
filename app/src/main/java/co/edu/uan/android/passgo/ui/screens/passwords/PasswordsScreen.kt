@@ -45,6 +45,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import co.edu.uan.android.passgo.R
 import androidx.compose.ui.graphics.ColorFilter
+import co.edu.uan.android.passgo.data.local.entity.CredentialEntity
 
 data class PasswordEntry(
     val name: String,
@@ -54,6 +55,7 @@ data class PasswordEntry(
 
 @Composable
 fun PasswordsScreen(
+    items: List<CredentialEntity>,
     onHomeClick: () -> Unit,
     onPasswordsClick: () -> Unit,
     onGeneratorClick: () -> Unit,
@@ -64,11 +66,21 @@ fun PasswordsScreen(
     val whiteColor = Color.White
     val secondaryText = Color(0xFFBDBDBD)
 
-    val repeatedApps = listOf(
-        PasswordEntry("Figma", "usuario@correo.com", R.drawable.logo_figma),
-        PasswordEntry("Facebook", "usuario@correo.com", R.drawable.logo_facebook),
-        PasswordEntry("Instagram", "usuario@correo.com", R.drawable.logo_instagram)
-    )
+    val repeatedApps = if (items.isEmpty()) {
+        listOf(
+            PasswordEntry("Figma", "usuario@correo.com", R.drawable.logo_figma),
+            PasswordEntry("Facebook", "usuario@correo.com", R.drawable.logo_facebook),
+            PasswordEntry("Instagram", "usuario@correo.com", R.drawable.logo_instagram)
+        )
+} else {
+    items.map { credential ->
+        PasswordEntry(
+            name = credential.siteName,
+            email = credential.siteUsername,
+            logoRes = R.drawable.logo_figma
+        )
+    }
+}
 
     Box(
         modifier = Modifier
