@@ -11,10 +11,6 @@ import co.edu.uan.android.passgo.data.local.entity.UserEntity
 import co.edu.uan.android.passgo.data.repository.PassGoRepositoryProvider
 import kotlinx.coroutines.launch
 
-fun showRecoveryResendMessage() {
-    recoveryMessage = "Se reenviará el código al correo registrado."
-}
-
 class PassGoViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = PassGoRepositoryProvider.getRepository(application)
 
@@ -41,6 +37,10 @@ class PassGoViewModel(application: Application) : AndroidViewModel(application) 
 
     var profileMessage by mutableStateOf<String?>(null)
         private set
+
+    fun showRecoveryResendMessage() {
+        recoveryMessage = "Se reenviará el código al correo registrado."
+    }
 
     fun login(usernameOrEmail: String, password: String, onSuccess: () -> Unit) {
         viewModelScope.launch {
