@@ -107,7 +107,7 @@ fun AppNavigation() {
                     }
                 },
                 onResend = {
-                    viewModel.recoveryMessage = "Se reenviará el código al correo registrado."
+                    viewModel.showRecoveryResendMessage()
                 }
             )
         }
