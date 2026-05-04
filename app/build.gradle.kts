@@ -1,7 +1,6 @@
 plugins {
-    id("org.jetbrains.kotlin.plugin.compose") version "2.3.10"
-    id("org.jetbrains.kotlin.android")
     id("com.android.application")
+    id("org.jetbrains.kotlin.plugin.compose") version "2.3.10"
     id("com.google.devtools.ksp") version "2.3.6"
 }
 
@@ -34,16 +33,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-
     buildFeatures {
         compose = true
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.0"
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
 }
 
