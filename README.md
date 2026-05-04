@@ -94,8 +94,6 @@ Al momento del registro o recuperación de contraseña, al presionar “Abrir co
 
 La aplicación ya se encuentra operativa y cumple con los requerimientos principales; sin embargo, aún hay algunos detalles visuales y ajustes menores que serán mejorados en la próxima entrega.
 
-La segunda versión probablemente encaja mejor con el tono de tu README: profesional, clara y sin ese “pues sale como si…” que en documentación técnica hace llorar suavemente a los repositorios.
-
 ---
 
 ## ⚙️ Instalación
