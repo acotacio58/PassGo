@@ -62,6 +62,8 @@ data class PasswordItem(
 
 @Composable
 fun HomeScreen(
+    username: String,
+    credentialsCount: Int,
     onHomeClick: () -> Unit,
     onPasswordsClick: () -> Unit,
     onGeneratorClick: () -> Unit,
@@ -124,7 +126,7 @@ fun HomeScreen(
                         Spacer(modifier = Modifier.width(8.dp))
 
                         Text(
-                            text = "Daniela",
+                            text = username,
                             color = whiteColor
                         )
 
