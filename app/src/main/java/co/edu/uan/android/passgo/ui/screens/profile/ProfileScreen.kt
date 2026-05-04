@@ -46,10 +46,14 @@ import androidx.compose.ui.graphics.ColorFilter
 
 @Composable
 fun ProfileScreen(
+    username: String,
+    email: String,
     onHomeClick: () -> Unit,
     onPasswordsClick: () -> Unit,
     onGeneratorClick: () -> Unit,
-    onProfileClick: () -> Unit
+    onProfileClick: () -> Unit,
+    onLogout: () -> Unit,
+    onDeleteAccount: ((String) -> Unit) -> Unit
 ) {
     val backgroundColor = Color(0xFF1E1F20)
     val cardColor = Color(0xFF3A3A3A)
@@ -179,7 +183,7 @@ fun ProfileScreen(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Button(
-                    onClick = {},
+                    onClick = onLogout,
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = blueColor
@@ -192,7 +196,11 @@ fun ProfileScreen(
                 }
 
                 Button(
-                    onClick = {},
+                    onClick = {
+                        onDeleteAccount { error ->
+                            println(error)
+                        }
+                    },
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = redColor
